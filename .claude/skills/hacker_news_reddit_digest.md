@@ -17,7 +17,7 @@ date +%Y-%m-%d
      - New AI programming techniques
 
 2. **Reddit - r/LocalLLaMA**
-   - URL: `https://www.reddit.com/r/LocalLLaMA/top/?t=week`
+   - URL: `https://old.reddit.com/r/LocalLLaMA/top/?t=week`
    - Focus on:
      - Open source LLM developments
      - Model fine-tuning techniques
@@ -25,14 +25,14 @@ date +%Y-%m-%d
      - Developer tools and libraries
 
 3. **Reddit - r/MachineLearning**
-   - URL: `https://www.reddit.com/r/MachineLearning/top/?t=week`
+   - URL: `https://old.reddit.com/r/MachineLearning/top/?t=week`
    - Focus on:
      - Research papers with practical applications
      - New architectures and techniques
      - Industry applications
 
 4. **Reddit - r/artificial**
-   - URL: `https://www.reddit.com/r/artificial/top/?t=week`
+   - URL: `https://old.reddit.com/r/artificial/top/?t=week`
    - Focus on:
      - AI product announcements
      - Developer discussions
@@ -42,6 +42,7 @@ date +%Y-%m-%d
 
 1. **For Hacker News**: Use WebFetch to check for top posts from the past week
 2. **For Reddit**: Use Playwright CLI to navigate Reddit pages and extract data, as Reddit blocks WebFetch requests due to bot detection
+   - **Always use `old.reddit.com`** — `www.reddit.com` is now gated behind a Google reCAPTCHA Enterprise JS challenge and cannot be scraped headlessly
    - Write and run a Node.js script using `require('playwright')` via Bash to scrape each subreddit
    - Extract post titles, URLs, scores, and comment counts
    - Focus on top posts from the past week
