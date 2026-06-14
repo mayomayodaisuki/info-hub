@@ -1,0 +1,1 @@
+[{"messages":[{"type":"lint","ruleId":"@textlint-ja/ai-writing/no-ai-hype-expressions","message":"「大幅に」という表現は誇張的である可能性があります。具体的な数値や割合を示すことを検討してください。","index":2246,"line":58,"column":26,"range":[2246,2249],"loc":{"start":{"line":58,"column":26},"end":{"line":58,"column":29}},"severity":2}],"filePath":"/Users/takuto/Dev/weekly_ai_dev/articles/weekly_ai_20260614.md"}]
