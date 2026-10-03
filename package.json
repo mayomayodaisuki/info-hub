@@ -1,11 +1,14 @@
 {
   "name": "weekly_ai_dev",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "collect:all": "node scripts/collect_all.js",
     "lint": "textlint articles/*.md",
     "lint:fix": "textlint --fix articles/*.md",
+    "test:prompt": "cd tests/promptfoo && npm test",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "lint:check": "textlint --version && echo 'textlint configuration:' && cat .textlintrc"
   },
   "repository": {
