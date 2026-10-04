@@ -4,6 +4,8 @@ node_modules
 .claude/settings.local.json
 .playwright-mcp/
 
+code.txt
+
 # Promptfoo test results and artifacts
 tests/promptfoo/results/
 tests/promptfoo/output/
@@ -16,3 +18,4 @@ tests/promptfoo/*.log
 tests/promptfoo/.env
 tests/promptfoo/.env.local
 tests/promptfoo/.env.*.local
+code.txt
