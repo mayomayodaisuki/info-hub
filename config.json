@@ -1,0 +1,11 @@
+{
+  "mode": "weekly",
+  "daily": {
+    "titlePrefix": "日刊AI駆動開発ダイジェスト",
+    "daysToCollect": 1
+  },
+  "weekly": {
+    "titlePrefix": "週刊AI駆動開発ダイジェスト",
+    "daysToCollect": 7
+  }
+}

@@ -3,10 +3,9 @@
 
 # Claude Code provider configuration - executes via `claude -p`
 providers:
-  - id: claude-code
+  - id: file://providers/claude-code-provider.yaml
     config:
       type: custom
-      module: ./providers/claude-code-provider.ts
       mockMode: true
 
 # Test data - article paths to review
@@ -14,7 +13,7 @@ prompts:
   - "./mocks/articles/weekly-ai-digest-20250721.md"
 
 # Output settings
-outputPath: ./results
+outputPath: ./results.json
 
 # Evaluation settings
 evaluateOptions:

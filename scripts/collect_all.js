@@ -4,9 +4,25 @@ import { collectCommunity } from './collectors/community.js';
 import { collectGithub } from './collectors/github.js';
 import { collectTechBlogs } from './collectors/tech_blogs.js';
 import { collectEvents } from './collectors/events.js';
+import fs from 'fs';
+import path from 'path';
+
+function loadConfig() {
+  const configPath = path.resolve(process.cwd(), 'config.json');
+  if (fs.existsSync(configPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    } catch (e) {
+      console.warn('config.jsonの読み込みに失敗しました。デフォルト（weekly）を使用します。');
+    }
+  }
+  return { mode: 'weekly' };
+}
 
 async function main() {
-  console.log('=== 全データ並列収集パイプラインを開始します ===');
+  const config = loadConfig();
+  const mode = config.mode || 'weekly';
+  console.log(`=== 全データ並列収集パイプラインを開始します (モード: ${mode}) ===`);
   const startTime = Date.now();
 
   const tasks = [
@@ -21,7 +37,7 @@ async function main() {
   const results = await Promise.allSettled(
     tasks.map(async task => {
       try {
-        await task.fn();
+        await task.fn(config);
         return { name: task.name, status: 'SUCCESS' };
       } catch (err) {
         console.error(`[FAIL] ${task.name}: ${err.message}`);
