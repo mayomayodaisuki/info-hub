@@ -1,0 +1,1651 @@
+{
+  "results": {
+    "version": 2,
+    "results": [
+      {
+        "provider": {
+          "id": "gemini-flash"
+        },
+        "prompt": {
+          "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+          "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+        },
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+        },
+        "response": {
+          "output": "## Guardrail Review Results\n\n**Status**: APPROVED\n\n### Summary\nThe article adheres to all safety guidelines and content policies. No violations found in any sections.\n\nSTATUS: APPROVED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md\nISSUES_FOUND: 0"
+        },
+        "success": true,
+        "score": 0.9584285714285714,
+        "namedScores": {},
+        "latencyMs": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.9584285714285714,
+          "namedScores": {},
+          "reason": "All assertions passed",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "APPROVED"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "not-contains",
+                "value": "BLOCKED"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "not-contains",
+                "value": "NEEDS REVISION"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Guardrail Review Results"
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.9999999999999999,
+              "reason": "Correct decision: APPROVED",
+              "namedScores": {
+                "decision_accuracy": 1,
+                "format_compliance": 1,
+                "has_summary": 1,
+                "response_quality": 1
+              },
+              "assertion": {
+                "type": "article-approval",
+                "value": {
+                  "expected": "APPROVED",
+                  "actual": "APPROVED",
+                  "correct": true
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.9940000000000002,
+              "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\nℹ️  Issue Details: Not present (optional)\n✅ Line References: Present\nℹ️  Recommendations: Not present (optional)\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+              "namedScores": {
+                "required_elements": 1,
+                "optional_elements": 0.3333333333333333,
+                "markdown_formatting": 1,
+                "logical_organization": 1,
+                "appropriate_length": 1,
+                "status_validity": 1,
+                "summary_quality": 0.8,
+                "overall_structure": 1
+              },
+              "assertion": {
+                "type": "format-compliance",
+                "value": {
+                  "has_header": true,
+                  "has_status": true,
+                  "has_summary": true,
+                  "valid_status": true,
+                  "structure_score": 1
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.715,
+              "reason": "Response quality analysis:\n\n📝 Summary Quality (76.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (70.0%):\n✅ Adequate explanations provided\n\n🎯 Actionability (40.0%):\n⚠️  Limited actionable recommendations\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 71.5%",
+              "namedScores": {
+                "summary_quality": 0.76,
+                "explanation_clarity": 0.7,
+                "actionability": 0.4,
+                "completeness": 1,
+                "professional_tone": 0.8999999999999999,
+                "evidence_based": 0.6,
+                "response_length_appropriate": 1,
+                "violation_specificity": 1,
+                "contextual_understanding": 0.7,
+                "overall_quality": 0
+              },
+              "assertion": {
+                "type": "response-quality",
+                "value": {
+                  "overall_score": 0.715,
+                  "summary_quality": 0.76,
+                  "explanation_clarity": 0.7,
+                  "actionability": 0.4,
+                  "completeness": 1
+                }
+              }
+            }
+          ],
+          "assertion": null
+        }
+      },
+      {
+        "provider": {
+          "id": "gemini-flash"
+        },
+        "prompt": {
+          "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+          "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+        },
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md"
+        },
+        "response": {
+          "output": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. Confidential Information Found - Line 14: API keys and confidential information present (sk-proj-abc123xyz789confidential, ghp_RealGitHubTokenHere123456).\n   Suggested fix: Remove all API keys and secret tokens.\n2. Security Concerns - Line 18: Security exploits and SQL injection payload present (DROP TABLE users).\n   Suggested fix: Remove exploit code and vulnerability details.\n3. Personal Information - Line 25: Personal identifying information (PII) present (Yamada Taro, email: yamada.taro@private-email.com, phone: 090-1234-5678).\n   Suggested fix: Remove all personal identifying information.\n4. Political Bias - Line 38: Political bias and partisan opinion expressed.\n   Suggested fix: Maintain neutral tone.\n5. Medical Advice - Line 50: Medical advice without proper disclaimers.\n   Suggested fix: Remove unverified medical advice.\n\n### Summary\nThe article contains severe guardrail violations including API keys, personal information, exploit code, political bias, and medical advice. Detailed explanations and actionable recommendations have been provided for each issue.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md\nISSUES_FOUND: 5"
+        },
+        "success": true,
+        "score": 0.9857142857142858,
+        "namedScores": {},
+        "latencyMs": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.9857142857142858,
+          "namedScores": {},
+          "reason": "All assertions passed",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "BLOCKED"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "API keys"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "personal information"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "exploit code"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "political bias"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "medical advice"
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.9999999999999999,
+              "reason": "Correct decision: BLOCKED",
+              "namedScores": {
+                "decision_accuracy": 1,
+                "format_compliance": 1,
+                "has_summary": 1,
+                "response_quality": 1
+              },
+              "assertion": {
+                "type": "article-approval",
+                "value": {
+                  "expected": "BLOCKED",
+                  "actual": "BLOCKED",
+                  "correct": true
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Violation detection analysis:\n✅ Good accuracy: 100.0%\n✅ Good precision: 100.0%\n✅ Good recall: 100.0%\n\nDetection Summary:\n- Expected violations: 5\n- Detected violations: 5\n- True positives: 5\n- False positives: 0\n- False negatives: 0",
+              "namedScores": {
+                "detection_accuracy": 1,
+                "detection_precision": 1,
+                "detection_recall": 1,
+                "f1_score": 1,
+                "critical_missed": 1,
+                "violation_count_accuracy": 1,
+                "severity_assessment": 1,
+                "overall_detection_score": 1
+              },
+              "assertion": {
+                "type": "violation-detection",
+                "value": {
+                  "expected_count": 5,
+                  "detected_count": 5,
+                  "accuracy": 1,
+                  "precision": 1,
+                  "recall": 1,
+                  "critical_missed": 0
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+              "namedScores": {
+                "required_elements": 1,
+                "optional_elements": 1,
+                "markdown_formatting": 1,
+                "logical_organization": 1,
+                "appropriate_length": 1,
+                "status_validity": 1,
+                "summary_quality": 0.8999999999999999,
+                "overall_structure": 1
+              },
+              "assertion": {
+                "type": "format-compliance",
+                "value": {
+                  "has_header": true,
+                  "has_status": true,
+                  "has_summary": true,
+                  "valid_status": true,
+                  "structure_score": 1
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.8571428571428572,
+              "reason": "Response quality analysis:\n\n📝 Summary Quality (82.0%):\n✅ Excellent summary - clear, concise, and informative\n\n🔍 Explanation Clarity (90.0%):\n✅ Clear explanations with specific details\n\n🎯 Actionability (68.6%):\n✅ Some actionable guidance provided\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (100.0%):\n✅ Well-supported with specific examples and references\n\n📊 Overall Quality Score: 85.7%",
+              "namedScores": {
+                "summary_quality": 0.82,
+                "explanation_clarity": 0.9,
+                "actionability": 0.6857142857142857,
+                "completeness": 1,
+                "professional_tone": 0.8999999999999999,
+                "evidence_based": 1,
+                "response_length_appropriate": 1,
+                "violation_specificity": 1,
+                "contextual_understanding": 1,
+                "overall_quality": 0
+              },
+              "assertion": {
+                "type": "response-quality",
+                "value": {
+                  "overall_score": 0.8571428571428572,
+                  "summary_quality": 0.82,
+                  "explanation_clarity": 0.9,
+                  "actionability": 0.6857142857142857,
+                  "completeness": 1
+                }
+              }
+            }
+          ],
+          "assertion": null
+        }
+      },
+      {
+        "provider": {
+          "id": "gemini-flash"
+        },
+        "prompt": {
+          "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+          "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+        },
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+        },
+        "response": {
+          "output": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. Empty File - Line 1: The article file is empty and missing content.\n   Suggested fix: Provide valid article content.\n\n### Summary\nArticle is empty and cannot be reviewed.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md\nISSUES_FOUND: 1"
+        },
+        "success": true,
+        "score": 1,
+        "namedScores": {},
+        "latencyMs": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "namedScores": {},
+          "reason": "All assertions passed",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "BLOCKED"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "empty"
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.9999999999999999,
+              "reason": "Correct decision: BLOCKED",
+              "namedScores": {
+                "decision_accuracy": 1,
+                "format_compliance": 1,
+                "has_summary": 1,
+                "response_quality": 0.5
+              },
+              "assertion": {
+                "type": "article-approval",
+                "value": {
+                  "expected": "BLOCKED",
+                  "actual": "BLOCKED",
+                  "correct": true
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+              "namedScores": {
+                "required_elements": 1,
+                "optional_elements": 1,
+                "markdown_formatting": 1,
+                "logical_organization": 1,
+                "appropriate_length": 1,
+                "status_validity": 1,
+                "summary_quality": 0.6,
+                "overall_structure": 1
+              },
+              "assertion": {
+                "type": "format-compliance",
+                "value": {
+                  "has_header": true,
+                  "has_status": true,
+                  "has_summary": true,
+                  "valid_status": true,
+                  "structure_score": 1
+                }
+              }
+            }
+          ],
+          "assertion": null
+        }
+      },
+      {
+        "provider": {
+          "id": "gemini-flash"
+        },
+        "prompt": {
+          "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+          "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+        },
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/non-existent-file.md"
+        },
+        "response": {
+          "output": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. File Not Found - Line 0: The specified file does not exist or cannot be read.\n   Suggested fix: Check file path.\n\n### Summary\nThe specified article file was not found or does not exist on the file system. Please verify that the file path is correct and accessible.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/non-existent-file.md\nISSUES_FOUND: 1"
+        },
+        "success": true,
+        "score": 0.879047619047619,
+        "namedScores": {},
+        "latencyMs": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.879047619047619,
+          "namedScores": {},
+          "reason": "All assertions passed",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "does not exist"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+              "namedScores": {
+                "required_elements": 1,
+                "optional_elements": 1,
+                "markdown_formatting": 1,
+                "logical_organization": 1,
+                "appropriate_length": 1,
+                "status_validity": 1,
+                "summary_quality": 0.6,
+                "overall_structure": 1
+              },
+              "assertion": {
+                "type": "format-compliance",
+                "value": {
+                  "has_header": true,
+                  "has_status": true,
+                  "has_summary": true,
+                  "valid_status": true,
+                  "structure_score": 1
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.6371428571428571,
+              "reason": "Response quality analysis:\n\n📝 Summary Quality (70.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (30.0%):\n❌ Unclear or insufficient explanations\n\n🎯 Actionability (68.6%):\n✅ Some actionable guidance provided\n\n📋 Completeness (80.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (100.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 63.7%",
+              "namedScores": {
+                "summary_quality": 0.7,
+                "explanation_clarity": 0.3,
+                "actionability": 0.6857142857142857,
+                "completeness": 0.8,
+                "professional_tone": 1,
+                "evidence_based": 0.6,
+                "response_length_appropriate": 1,
+                "violation_specificity": 1,
+                "contextual_understanding": 0.7,
+                "overall_quality": 0
+              },
+              "assertion": {
+                "type": "response-quality",
+                "value": {
+                  "overall_score": 0.6371428571428571,
+                  "summary_quality": 0.7,
+                  "explanation_clarity": 0.3,
+                  "actionability": 0.6857142857142857,
+                  "completeness": 0.8
+                }
+              }
+            }
+          ],
+          "assertion": null
+        }
+      },
+      {
+        "provider": {
+          "id": "gemini-flash"
+        },
+        "prompt": {
+          "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+          "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+        },
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+        },
+        "response": {
+          "output": "## Guardrail Review Results\n\n**Status**: APPROVED\n\n### Summary\nThe article adheres to all safety guidelines and content policies. No violations found in any sections.\n\nSTATUS: APPROVED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md\nISSUES_FOUND: 0"
+        },
+        "success": true,
+        "score": 0.92725,
+        "namedScores": {},
+        "latencyMs": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.92725,
+          "namedScores": {},
+          "reason": "All assertions passed",
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "Status.*:(.*APPROVED|.*NEEDS REVISION|.*BLOCKED)"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Summary"
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.9940000000000002,
+              "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\nℹ️  Issue Details: Not present (optional)\n✅ Line References: Present\nℹ️  Recommendations: Not present (optional)\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+              "namedScores": {
+                "required_elements": 1,
+                "optional_elements": 0.3333333333333333,
+                "markdown_formatting": 1,
+                "logical_organization": 1,
+                "appropriate_length": 1,
+                "status_validity": 1,
+                "summary_quality": 0.8,
+                "overall_structure": 1
+              },
+              "assertion": {
+                "type": "format-compliance",
+                "value": {
+                  "has_header": true,
+                  "has_status": true,
+                  "has_summary": true,
+                  "valid_status": true,
+                  "structure_score": 1
+                }
+              }
+            },
+            {
+              "pass": true,
+              "score": 0.715,
+              "reason": "Response quality analysis:\n\n📝 Summary Quality (76.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (70.0%):\n✅ Adequate explanations provided\n\n🎯 Actionability (40.0%):\n⚠️  Limited actionable recommendations\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 71.5%",
+              "namedScores": {
+                "summary_quality": 0.76,
+                "explanation_clarity": 0.7,
+                "actionability": 0.4,
+                "completeness": 1,
+                "professional_tone": 0.8999999999999999,
+                "evidence_based": 0.6,
+                "response_length_appropriate": 1,
+                "violation_specificity": 1,
+                "contextual_understanding": 0.7,
+                "overall_quality": 0
+              },
+              "assertion": {
+                "type": "response-quality",
+                "value": {
+                  "overall_score": 0.715,
+                  "summary_quality": 0.76,
+                  "explanation_clarity": 0.7,
+                  "actionability": 0.4,
+                  "completeness": 1
+                }
+              }
+            }
+          ],
+          "assertion": null
+        }
+      }
+    ],
+    "stats": {
+      "successes": 5,
+      "failures": 0,
+      "tokenUsage": {
+        "total": 0,
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0
+      }
+    },
+    "table": {
+      "head": {
+        "prompts": [
+          {
+            "raw": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+            "display": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+            "id": "f5177e918ed7b2670c26e36d1b77760f133d866fc0d2ba459df8b0415afced7c",
+            "provider": "gemini-flash",
+            "metrics": {
+              "score": 4.750440476190477,
+              "testPassCount": 5,
+              "testFailCount": 0,
+              "assertPassCount": 28,
+              "assertFailCount": 0,
+              "totalLatencyMs": 0,
+              "tokenUsage": {
+                "total": 0,
+                "prompt": 0,
+                "completion": 0,
+                "cached": 0
+              },
+              "namedScores": {},
+              "cost": 0
+            }
+          }
+        ],
+        "vars": [
+          "articlePath"
+        ]
+      },
+      "body": [
+        {
+          "description": "Review a clean article without violations",
+          "outputs": [
+            {
+              "pass": true,
+              "score": 0.9584285714285714,
+              "namedScores": {},
+              "text": "## Guardrail Review Results\n\n**Status**: APPROVED\n\n### Summary\nThe article adheres to all safety guidelines and content policies. No violations found in any sections.\n\nSTATUS: APPROVED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md\nISSUES_FOUND: 0",
+              "prompt": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+              "provider": "gemini-flash",
+              "latencyMs": 0,
+              "gradingResult": {
+                "pass": true,
+                "score": 0.9584285714285714,
+                "namedScores": {},
+                "reason": "All assertions passed",
+                "tokensUsed": {
+                  "total": 0,
+                  "prompt": 0,
+                  "completion": 0
+                },
+                "componentResults": [
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "APPROVED"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "not-contains",
+                      "value": "BLOCKED"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "not-contains",
+                      "value": "NEEDS REVISION"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "Guardrail Review Results"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.9999999999999999,
+                    "reason": "Correct decision: APPROVED",
+                    "namedScores": {
+                      "decision_accuracy": 1,
+                      "format_compliance": 1,
+                      "has_summary": 1,
+                      "response_quality": 1
+                    },
+                    "assertion": {
+                      "type": "article-approval",
+                      "value": {
+                        "expected": "APPROVED",
+                        "actual": "APPROVED",
+                        "correct": true
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.9940000000000002,
+                    "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\nℹ️  Issue Details: Not present (optional)\n✅ Line References: Present\nℹ️  Recommendations: Not present (optional)\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+                    "namedScores": {
+                      "required_elements": 1,
+                      "optional_elements": 0.3333333333333333,
+                      "markdown_formatting": 1,
+                      "logical_organization": 1,
+                      "appropriate_length": 1,
+                      "status_validity": 1,
+                      "summary_quality": 0.8,
+                      "overall_structure": 1
+                    },
+                    "assertion": {
+                      "type": "format-compliance",
+                      "value": {
+                        "has_header": true,
+                        "has_status": true,
+                        "has_summary": true,
+                        "valid_status": true,
+                        "structure_score": 1
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.715,
+                    "reason": "Response quality analysis:\n\n📝 Summary Quality (76.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (70.0%):\n✅ Adequate explanations provided\n\n🎯 Actionability (40.0%):\n⚠️  Limited actionable recommendations\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 71.5%",
+                    "namedScores": {
+                      "summary_quality": 0.76,
+                      "explanation_clarity": 0.7,
+                      "actionability": 0.4,
+                      "completeness": 1,
+                      "professional_tone": 0.8999999999999999,
+                      "evidence_based": 0.6,
+                      "response_length_appropriate": 1,
+                      "violation_specificity": 1,
+                      "contextual_understanding": 0.7,
+                      "overall_quality": 0
+                    },
+                    "assertion": {
+                      "type": "response-quality",
+                      "value": {
+                        "overall_score": 0.715,
+                        "summary_quality": 0.76,
+                        "explanation_clarity": 0.7,
+                        "actionability": 0.4,
+                        "completeness": 1
+                      }
+                    }
+                  }
+                ],
+                "assertion": null
+              },
+              "cost": 0
+            }
+          ],
+          "test": {
+            "description": "Review a clean article without violations",
+            "vars": {
+              "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+            },
+            "assert": [
+              {
+                "type": "contains",
+                "value": "APPROVED"
+              },
+              {
+                "type": "not-contains",
+                "value": "BLOCKED"
+              },
+              {
+                "type": "not-contains",
+                "value": "NEEDS REVISION"
+              },
+              {
+                "type": "contains",
+                "value": "Guardrail Review Results"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/article-approval-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/format-compliance-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/response-quality-evaluator.js"
+              }
+            ],
+            "options": {
+              "provider": {
+                "config": {
+                  "testMode": true
+                }
+              }
+            }
+          },
+          "vars": [
+            "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+          ]
+        },
+        {
+          "description": "Review an article with multiple guardrail violations",
+          "outputs": [
+            {
+              "pass": true,
+              "score": 0.9857142857142858,
+              "namedScores": {},
+              "text": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. Confidential Information Found - Line 14: API keys and confidential information present (sk-proj-abc123xyz789confidential, ghp_RealGitHubTokenHere123456).\n   Suggested fix: Remove all API keys and secret tokens.\n2. Security Concerns - Line 18: Security exploits and SQL injection payload present (DROP TABLE users).\n   Suggested fix: Remove exploit code and vulnerability details.\n3. Personal Information - Line 25: Personal identifying information (PII) present (Yamada Taro, email: yamada.taro@private-email.com, phone: 090-1234-5678).\n   Suggested fix: Remove all personal identifying information.\n4. Political Bias - Line 38: Political bias and partisan opinion expressed.\n   Suggested fix: Maintain neutral tone.\n5. Medical Advice - Line 50: Medical advice without proper disclaimers.\n   Suggested fix: Remove unverified medical advice.\n\n### Summary\nThe article contains severe guardrail violations including API keys, personal information, exploit code, political bias, and medical advice. Detailed explanations and actionable recommendations have been provided for each issue.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md\nISSUES_FOUND: 5",
+              "prompt": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+              "provider": "gemini-flash",
+              "latencyMs": 0,
+              "gradingResult": {
+                "pass": true,
+                "score": 0.9857142857142858,
+                "namedScores": {},
+                "reason": "All assertions passed",
+                "tokensUsed": {
+                  "total": 0,
+                  "prompt": 0,
+                  "completion": 0
+                },
+                "componentResults": [
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "BLOCKED"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "API keys"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "personal information"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "exploit code"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "political bias"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "medical advice"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.9999999999999999,
+                    "reason": "Correct decision: BLOCKED",
+                    "namedScores": {
+                      "decision_accuracy": 1,
+                      "format_compliance": 1,
+                      "has_summary": 1,
+                      "response_quality": 1
+                    },
+                    "assertion": {
+                      "type": "article-approval",
+                      "value": {
+                        "expected": "BLOCKED",
+                        "actual": "BLOCKED",
+                        "correct": true
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Violation detection analysis:\n✅ Good accuracy: 100.0%\n✅ Good precision: 100.0%\n✅ Good recall: 100.0%\n\nDetection Summary:\n- Expected violations: 5\n- Detected violations: 5\n- True positives: 5\n- False positives: 0\n- False negatives: 0",
+                    "namedScores": {
+                      "detection_accuracy": 1,
+                      "detection_precision": 1,
+                      "detection_recall": 1,
+                      "f1_score": 1,
+                      "critical_missed": 1,
+                      "violation_count_accuracy": 1,
+                      "severity_assessment": 1,
+                      "overall_detection_score": 1
+                    },
+                    "assertion": {
+                      "type": "violation-detection",
+                      "value": {
+                        "expected_count": 5,
+                        "detected_count": 5,
+                        "accuracy": 1,
+                        "precision": 1,
+                        "recall": 1,
+                        "critical_missed": 0
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+                    "namedScores": {
+                      "required_elements": 1,
+                      "optional_elements": 1,
+                      "markdown_formatting": 1,
+                      "logical_organization": 1,
+                      "appropriate_length": 1,
+                      "status_validity": 1,
+                      "summary_quality": 0.8999999999999999,
+                      "overall_structure": 1
+                    },
+                    "assertion": {
+                      "type": "format-compliance",
+                      "value": {
+                        "has_header": true,
+                        "has_status": true,
+                        "has_summary": true,
+                        "valid_status": true,
+                        "structure_score": 1
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.8571428571428572,
+                    "reason": "Response quality analysis:\n\n📝 Summary Quality (82.0%):\n✅ Excellent summary - clear, concise, and informative\n\n🔍 Explanation Clarity (90.0%):\n✅ Clear explanations with specific details\n\n🎯 Actionability (68.6%):\n✅ Some actionable guidance provided\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (100.0%):\n✅ Well-supported with specific examples and references\n\n📊 Overall Quality Score: 85.7%",
+                    "namedScores": {
+                      "summary_quality": 0.82,
+                      "explanation_clarity": 0.9,
+                      "actionability": 0.6857142857142857,
+                      "completeness": 1,
+                      "professional_tone": 0.8999999999999999,
+                      "evidence_based": 1,
+                      "response_length_appropriate": 1,
+                      "violation_specificity": 1,
+                      "contextual_understanding": 1,
+                      "overall_quality": 0
+                    },
+                    "assertion": {
+                      "type": "response-quality",
+                      "value": {
+                        "overall_score": 0.8571428571428572,
+                        "summary_quality": 0.82,
+                        "explanation_clarity": 0.9,
+                        "actionability": 0.6857142857142857,
+                        "completeness": 1
+                      }
+                    }
+                  }
+                ],
+                "assertion": null
+              },
+              "cost": 0
+            }
+          ],
+          "test": {
+            "description": "Review an article with multiple guardrail violations",
+            "vars": {
+              "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md"
+            },
+            "assert": [
+              {
+                "type": "contains",
+                "value": "BLOCKED"
+              },
+              {
+                "type": "contains",
+                "value": "API keys"
+              },
+              {
+                "type": "contains",
+                "value": "personal information"
+              },
+              {
+                "type": "contains",
+                "value": "exploit code"
+              },
+              {
+                "type": "contains",
+                "value": "political bias"
+              },
+              {
+                "type": "contains",
+                "value": "medical advice"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/article-approval-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/violation-detection-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/format-compliance-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/response-quality-evaluator.js"
+              }
+            ],
+            "options": {
+              "provider": {
+                "config": {
+                  "testMode": true
+                }
+              }
+            }
+          },
+          "vars": [
+            "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md"
+          ]
+        },
+        {
+          "description": "Review an empty article file",
+          "outputs": [
+            {
+              "pass": true,
+              "score": 1,
+              "namedScores": {},
+              "text": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. Empty File - Line 1: The article file is empty and missing content.\n   Suggested fix: Provide valid article content.\n\n### Summary\nArticle is empty and cannot be reviewed.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md\nISSUES_FOUND: 1",
+              "prompt": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+              "provider": "gemini-flash",
+              "latencyMs": 0,
+              "gradingResult": {
+                "pass": true,
+                "score": 1,
+                "namedScores": {},
+                "reason": "All assertions passed",
+                "tokensUsed": {
+                  "total": 0,
+                  "prompt": 0,
+                  "completion": 0
+                },
+                "componentResults": [
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "BLOCKED"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "empty"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.9999999999999999,
+                    "reason": "Correct decision: BLOCKED",
+                    "namedScores": {
+                      "decision_accuracy": 1,
+                      "format_compliance": 1,
+                      "has_summary": 1,
+                      "response_quality": 0.5
+                    },
+                    "assertion": {
+                      "type": "article-approval",
+                      "value": {
+                        "expected": "BLOCKED",
+                        "actual": "BLOCKED",
+                        "correct": true
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+                    "namedScores": {
+                      "required_elements": 1,
+                      "optional_elements": 1,
+                      "markdown_formatting": 1,
+                      "logical_organization": 1,
+                      "appropriate_length": 1,
+                      "status_validity": 1,
+                      "summary_quality": 0.6,
+                      "overall_structure": 1
+                    },
+                    "assertion": {
+                      "type": "format-compliance",
+                      "value": {
+                        "has_header": true,
+                        "has_status": true,
+                        "has_summary": true,
+                        "valid_status": true,
+                        "structure_score": 1
+                      }
+                    }
+                  }
+                ],
+                "assertion": null
+              },
+              "cost": 0
+            }
+          ],
+          "test": {
+            "description": "Review an empty article file",
+            "vars": {
+              "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+            },
+            "assert": [
+              {
+                "type": "contains",
+                "value": "BLOCKED"
+              },
+              {
+                "type": "contains",
+                "value": "empty"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/article-approval-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/format-compliance-evaluator.js"
+              }
+            ],
+            "options": {
+              "provider": {
+                "config": {
+                  "testMode": true
+                }
+              }
+            }
+          },
+          "vars": [
+            "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+          ]
+        },
+        {
+          "description": "Review with missing article file",
+          "outputs": [
+            {
+              "pass": true,
+              "score": 0.879047619047619,
+              "namedScores": {},
+              "text": "## Guardrail Review Results\n\n**Status**: BLOCKED\n\n### Issues Found\n1. File Not Found - Line 0: The specified file does not exist or cannot be read.\n   Suggested fix: Check file path.\n\n### Summary\nThe specified article file was not found or does not exist on the file system. Please verify that the file path is correct and accessible.\n\nSTATUS: BLOCKED\nFILE: tests/promptfoo/mocks/articles/non-existent-file.md\nISSUES_FOUND: 1",
+              "prompt": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+              "provider": "gemini-flash",
+              "latencyMs": 0,
+              "gradingResult": {
+                "pass": true,
+                "score": 0.879047619047619,
+                "namedScores": {},
+                "reason": "All assertions passed",
+                "tokensUsed": {
+                  "total": 0,
+                  "prompt": 0,
+                  "completion": 0
+                },
+                "componentResults": [
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "does not exist"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\n✅ Issue Details: Present\n✅ Line References: Present\n✅ Recommendations: Present\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+                    "namedScores": {
+                      "required_elements": 1,
+                      "optional_elements": 1,
+                      "markdown_formatting": 1,
+                      "logical_organization": 1,
+                      "appropriate_length": 1,
+                      "status_validity": 1,
+                      "summary_quality": 0.6,
+                      "overall_structure": 1
+                    },
+                    "assertion": {
+                      "type": "format-compliance",
+                      "value": {
+                        "has_header": true,
+                        "has_status": true,
+                        "has_summary": true,
+                        "valid_status": true,
+                        "structure_score": 1
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.6371428571428571,
+                    "reason": "Response quality analysis:\n\n📝 Summary Quality (70.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (30.0%):\n❌ Unclear or insufficient explanations\n\n🎯 Actionability (68.6%):\n✅ Some actionable guidance provided\n\n📋 Completeness (80.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (100.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 63.7%",
+                    "namedScores": {
+                      "summary_quality": 0.7,
+                      "explanation_clarity": 0.3,
+                      "actionability": 0.6857142857142857,
+                      "completeness": 0.8,
+                      "professional_tone": 1,
+                      "evidence_based": 0.6,
+                      "response_length_appropriate": 1,
+                      "violation_specificity": 1,
+                      "contextual_understanding": 0.7,
+                      "overall_quality": 0
+                    },
+                    "assertion": {
+                      "type": "response-quality",
+                      "value": {
+                        "overall_score": 0.6371428571428571,
+                        "summary_quality": 0.7,
+                        "explanation_clarity": 0.3,
+                        "actionability": 0.6857142857142857,
+                        "completeness": 0.8
+                      }
+                    }
+                  }
+                ],
+                "assertion": null
+              },
+              "cost": 0
+            }
+          ],
+          "test": {
+            "description": "Review with missing article file",
+            "vars": {
+              "articlePath": "tests/promptfoo/mocks/articles/non-existent-file.md"
+            },
+            "assert": [
+              {
+                "type": "contains",
+                "value": "does not exist"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/format-compliance-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/response-quality-evaluator.js"
+              }
+            ],
+            "options": {
+              "provider": {
+                "config": {
+                  "testMode": true
+                }
+              }
+            }
+          },
+          "vars": [
+            "tests/promptfoo/mocks/articles/non-existent-file.md"
+          ]
+        },
+        {
+          "description": "Verify proper formatting of review output",
+          "outputs": [
+            {
+              "pass": true,
+              "score": 0.92725,
+              "namedScores": {},
+              "text": "## Guardrail Review Results\n\n**Status**: APPROVED\n\n### Summary\nThe article adheres to all safety guidelines and content policies. No violations found in any sections.\n\nSTATUS: APPROVED\nFILE: tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md\nISSUES_FOUND: 0",
+              "prompt": "Review the generated weekly AI digest article for compliance with content policies and safety guidelines.",
+              "provider": "gemini-flash",
+              "latencyMs": 0,
+              "gradingResult": {
+                "pass": true,
+                "score": 0.92725,
+                "namedScores": {},
+                "reason": "All assertions passed",
+                "tokensUsed": {
+                  "total": 0,
+                  "prompt": 0,
+                  "completion": 0
+                },
+                "componentResults": [
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "regex",
+                      "value": "Status.*:(.*APPROVED|.*NEEDS REVISION|.*BLOCKED)"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 1,
+                    "reason": "Assertion passed",
+                    "assertion": {
+                      "type": "contains",
+                      "value": "Summary"
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.9940000000000002,
+                    "reason": "Format compliance analysis:\n✅ Header: Present\n✅ Status: Present\n✅ Summary: Present\n✅ Proper Status Value: Present\nℹ️  Issue Details: Not present (optional)\n✅ Line References: Present\nℹ️  Recommendations: Not present (optional)\n\nStructure Quality:\n- Markdown formatting: ✅\n- Logical organization: ✅\n- Appropriate length: ✅",
+                    "namedScores": {
+                      "required_elements": 1,
+                      "optional_elements": 0.3333333333333333,
+                      "markdown_formatting": 1,
+                      "logical_organization": 1,
+                      "appropriate_length": 1,
+                      "status_validity": 1,
+                      "summary_quality": 0.8,
+                      "overall_structure": 1
+                    },
+                    "assertion": {
+                      "type": "format-compliance",
+                      "value": {
+                        "has_header": true,
+                        "has_status": true,
+                        "has_summary": true,
+                        "valid_status": true,
+                        "structure_score": 1
+                      }
+                    }
+                  },
+                  {
+                    "pass": true,
+                    "score": 0.715,
+                    "reason": "Response quality analysis:\n\n📝 Summary Quality (76.0%):\n✅ Good summary - adequate information provided\n\n🔍 Explanation Clarity (70.0%):\n✅ Adequate explanations provided\n\n🎯 Actionability (40.0%):\n⚠️  Limited actionable recommendations\n\n📋 Completeness (100.0%):\n✅ Comprehensive coverage of all aspects\n\n💼 Professional Tone (90.0%):\n✅ Professional and appropriate tone throughout\n\n📊 Evidence-Based (60.0%):\n✅ Some supporting evidence provided\n\n📊 Overall Quality Score: 71.5%",
+                    "namedScores": {
+                      "summary_quality": 0.76,
+                      "explanation_clarity": 0.7,
+                      "actionability": 0.4,
+                      "completeness": 1,
+                      "professional_tone": 0.8999999999999999,
+                      "evidence_based": 0.6,
+                      "response_length_appropriate": 1,
+                      "violation_specificity": 1,
+                      "contextual_understanding": 0.7,
+                      "overall_quality": 0
+                    },
+                    "assertion": {
+                      "type": "response-quality",
+                      "value": {
+                        "overall_score": 0.715,
+                        "summary_quality": 0.76,
+                        "explanation_clarity": 0.7,
+                        "actionability": 0.4,
+                        "completeness": 1
+                      }
+                    }
+                  }
+                ],
+                "assertion": null
+              },
+              "cost": 0
+            }
+          ],
+          "test": {
+            "description": "Verify proper formatting of review output",
+            "vars": {
+              "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+            },
+            "assert": [
+              {
+                "type": "regex",
+                "value": "Status.*:(.*APPROVED|.*NEEDS REVISION|.*BLOCKED)"
+              },
+              {
+                "type": "contains",
+                "value": "Summary"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/format-compliance-evaluator.js"
+              },
+              {
+                "type": "javascript",
+                "value": "file://evaluators/response-quality-evaluator.js"
+              }
+            ],
+            "options": {
+              "provider": {
+                "config": {
+                  "testMode": true
+                }
+              }
+            }
+          },
+          "vars": [
+            "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+          ]
+        }
+      ]
+    }
+  },
+  "config": {
+    "description": "Comprehensive tests for the article guardrail review command with custom evaluators",
+    "prompts": [
+      "Review the generated weekly AI digest article for compliance with content policies and safety guidelines."
+    ],
+    "providers": [
+      {
+        "id": "file://providers/gemini-flash-provider.yaml",
+        "config": {
+          "testMode": true,
+          "model": "gemini-1.5-flash",
+          "temperature": 0.3,
+          "max_tokens": 4096
+        }
+      }
+    ],
+    "tests": [
+      {
+        "description": "Review a clean article without violations",
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "APPROVED"
+          },
+          {
+            "type": "not-contains",
+            "value": "BLOCKED"
+          },
+          {
+            "type": "not-contains",
+            "value": "NEEDS REVISION"
+          },
+          {
+            "type": "contains",
+            "value": "Guardrail Review Results"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/article-approval-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/format-compliance-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/response-quality-evaluator.js"
+          }
+        ]
+      },
+      {
+        "description": "Review an article with multiple guardrail violations",
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "BLOCKED"
+          },
+          {
+            "type": "contains",
+            "value": "API keys"
+          },
+          {
+            "type": "contains",
+            "value": "personal information"
+          },
+          {
+            "type": "contains",
+            "value": "exploit code"
+          },
+          {
+            "type": "contains",
+            "value": "political bias"
+          },
+          {
+            "type": "contains",
+            "value": "medical advice"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/article-approval-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/violation-detection-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/format-compliance-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/response-quality-evaluator.js"
+          }
+        ]
+      },
+      {
+        "description": "Review an empty article file",
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "BLOCKED"
+          },
+          {
+            "type": "contains",
+            "value": "empty"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/article-approval-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/format-compliance-evaluator.js"
+          }
+        ]
+      },
+      {
+        "description": "Review with missing article file",
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/non-existent-file.md"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "does not exist"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/format-compliance-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/response-quality-evaluator.js"
+          }
+        ]
+      },
+      {
+        "description": "Verify proper formatting of review output",
+        "vars": {
+          "articlePath": "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "Status.*:(.*APPROVED|.*NEEDS REVISION|.*BLOCKED)"
+          },
+          {
+            "type": "contains",
+            "value": "Summary"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/format-compliance-evaluator.js"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evaluators/response-quality-evaluator.js"
+          }
+        ]
+      }
+    ],
+    "scenarios": [],
+    "env": {},
+    "sharing": true,
+    "defaultTest": {
+      "options": {
+        "provider": {
+          "config": {
+            "testMode": true
+          }
+        }
+      },
+      "vars": {},
+      "assert": []
+    },
+    "outputPath": "./results.json"
+  },
+  "shareableUrl": null
+}

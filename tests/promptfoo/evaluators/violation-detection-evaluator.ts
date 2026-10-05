@@ -2,8 +2,8 @@
  * Custom evaluator for violation detection accuracy and completeness
  */
 
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { ResponseParser } from './utils/response-parser.js';
 import { ViolationClassifier, ExpectedViolation } from './utils/violation-classifier.js';
 import { MetricsCalculator } from './utils/metrics-calculator.js';
@@ -36,16 +36,30 @@ export default async function violationDetectionEvaluator(
   context: EvaluationContext
 ): Promise<EvaluationResult> {
   const parsed = ResponseParser.parseGuardrailResponse(response);
-  const articlePath = context.vars?.articlePath || context.test?.vars?.articlePath;
+  const rawArticlePath = context.vars?.articlePath || context.test?.vars?.articlePath || '';
   
   try {
+    // Resolve article path flexibly whether running from /app or /app/tests/promptfoo
+    let resolvedPath = rawArticlePath;
+    if (rawArticlePath && !fs.existsSync(resolvedPath)) {
+      const altPath = rawArticlePath.replace(/^tests\/promptfoo\//, '');
+      if (fs.existsSync(altPath)) {
+        resolvedPath = altPath;
+      } else {
+        const rootPath = path.resolve('/app', rawArticlePath);
+        if (fs.existsSync(rootPath)) {
+          resolvedPath = rootPath;
+        }
+      }
+    }
+
     // Read the article content to analyze expected violations
     let articleContent = '';
     let expectedViolations: ExpectedViolation[] = [];
     
-    if (articlePath && fs.existsSync(articlePath)) {
-      articleContent = fs.readFileSync(articlePath, 'utf-8');
-      expectedViolations = ViolationClassifier.getExpectedViolations(articlePath, articleContent);
+    if (resolvedPath && fs.existsSync(resolvedPath)) {
+      articleContent = fs.readFileSync(resolvedPath, 'utf-8');
+      expectedViolations = ViolationClassifier.getExpectedViolations(rawArticlePath || resolvedPath, articleContent);
     }
 
     // Classify detected violations

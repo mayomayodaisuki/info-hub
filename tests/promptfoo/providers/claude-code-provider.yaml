@@ -1,0 +1,3 @@
+id: ../providers/claude-code-provider.js
+config:
+  testMode: true
