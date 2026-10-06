@@ -7,8 +7,9 @@ function getTodayDir() {
   return path.join(process.cwd(), 'resources', today);
 }
 
-export async function collectGithub() {
-  console.log('[GitHub] GitHubトレンドおよびリリース情報の収集を開始します...');
+export async function collectGithub(config = {}) {
+  const mode = config.mode || 'weekly';
+  console.log(`[GitHub] GitHubトレンドおよびリリース情報の収集を開始します... (モード: ${mode})`);
   const outputDir = getTodayDir();
   await fs.mkdir(outputDir, { recursive: true });
   const today = new Date().toISOString().split('T')[0];
@@ -16,13 +17,15 @@ export async function collectGithub() {
   // 1. Trending Repositories (finally によるブラウザ解放)
   const repos = [];
   let browser;
+  const sinceParam = mode === 'daily' ? 'daily' : 'weekly';
+  const repoLimit = mode === 'daily' ? 2 : 3;
 
   try {
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto('https://github.com/trending?since=weekly', { waitUntil: 'domcontentloaded', timeout: 20000 });
-    const extracted = await page.evaluate(() => {
-      const rows = Array.from(document.querySelectorAll('article.Box-row')).slice(0, 3);
+    await page.goto(`https://github.com/trending?since=${sinceParam}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    const extracted = await page.evaluate((limit) => {
+      const rows = Array.from(document.querySelectorAll('article.Box-row')).slice(0, limit);
       return rows.map(r => {
         const titleAnchor = r.querySelector('h2 a');
         const descEl = r.querySelector('p');
@@ -31,7 +34,7 @@ export async function collectGithub() {
         const desc = descEl ? descEl.innerText.trim() : '';
         return { repoName, url, desc };
       });
-    });
+    }, repoLimit);
     repos.push(...extracted);
   } catch (e) {
     console.warn(`[GitHub] Trending 取得エラー: ${e.message}`);

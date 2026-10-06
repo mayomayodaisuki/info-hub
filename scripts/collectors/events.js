@@ -6,8 +6,9 @@ function getTodayDir() {
   return path.join(process.cwd(), 'resources', today);
 }
 
-export async function collectEvents() {
-  console.log('[Events] Connpass イベント情報の収集を開始します...');
+export async function collectEvents(config = {}) {
+  const mode = config.mode || 'weekly';
+  console.log(`[Events] Connpass イベント情報の収集を開始します... (モード: ${mode})`);
   const outputDir = getTodayDir();
   await fs.mkdir(outputDir, { recursive: true });
   const today = new Date().toISOString().split('T')[0];

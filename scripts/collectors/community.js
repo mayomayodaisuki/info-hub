@@ -7,17 +7,21 @@ function getTodayDir() {
   return path.join(process.cwd(), 'resources', today);
 }
 
-export async function collectCommunity() {
-  console.log('[Community] コミュニティ動向の収集を開始します...');
+export async function collectCommunity(config = {}) {
+  const mode = config.mode || 'weekly';
+  console.log(`[Community] コミュニティ動向の収集を開始します... (モード: ${mode})`);
   const outputDir = getTodayDir();
   await fs.mkdir(outputDir, { recursive: true });
   const today = new Date().toISOString().split('T')[0];
 
   const topics = [];
+  const redditTimeframe = mode === 'daily' ? 'day' : 'week';
+  const redditLimit = mode === 'daily' ? 1 : 2;
 
   // 1. Hacker News API (Algolia)
   try {
-    const res = await fetch('https://hn.algolia.com/api/v1/search?query=AI%20LLM%20Claude%20GPT&tags=story&hitsPerPage=3');
+    const hitsCount = mode === 'daily' ? 2 : 3;
+    const res = await fetch(`https://hn.algolia.com/api/v1/search?query=AI%20LLM%20Claude%20GPT&tags=story&hitsPerPage=${hitsCount}`);
     if (res.ok) {
       const data = await res.json();
       data.hits.forEach(hit => {
@@ -44,9 +48,9 @@ export async function collectCommunity() {
     const subreddits = ['LocalLLaMA', 'MachineLearning'];
     for (const sub of subreddits) {
       try {
-        await page.goto(`https://old.reddit.com/r/${sub}/top/?t=week`, { waitUntil: 'domcontentloaded', timeout: 15000 });
-        const posts = await page.evaluate(() => {
-          const entries = Array.from(document.querySelectorAll('div.thing')).slice(0, 2);
+        await page.goto(`https://old.reddit.com/r/${sub}/top/?t=${redditTimeframe}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+        const posts = await page.evaluate((limit) => {
+          const entries = Array.from(document.querySelectorAll('div.thing')).slice(0, limit);
           return entries.map(e => {
             const titleEl = e.querySelector('a.title');
             const permalink = e.getAttribute('data-permalink');
@@ -55,7 +59,7 @@ export async function collectCommunity() {
               url: permalink ? `https://www.reddit.com${permalink}` : ''
             };
           });
-        });
+        }, redditLimit);
 
         posts.forEach(p => {
           if (p.title && p.url) {

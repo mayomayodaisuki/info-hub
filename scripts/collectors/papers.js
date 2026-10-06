@@ -16,8 +16,9 @@ function getISOWeekNumber(d) {
   return `${date.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
 }
 
-export async function collectPapers() {
-  console.log('[Papers] 論文情報の収集を開始します...');
+export async function collectPapers(config = {}) {
+  const mode = config.mode || 'weekly';
+  console.log(`[Papers] 論文情報の収集を開始します... (モード: ${mode})`);
   const outputDir = getTodayDir();
   await fs.mkdir(outputDir, { recursive: true });
   const today = new Date().toISOString().split('T')[0];
@@ -25,14 +26,17 @@ export async function collectPapers() {
 
   let browser;
   const papers = [];
+  const maxItems = mode === 'daily' ? 2 : 3;
 
   try {
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
-    const hfUrl = `https://huggingface.co/papers/week/${weekStr}`;
+    const hfUrl = mode === 'daily'
+      ? 'https://huggingface.co/papers'
+      : `https://huggingface.co/papers/week/${weekStr}`;
     await page.goto(hfUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
 
-    const paperLinks = await page.evaluate(() => {
+    const paperLinks = await page.evaluate((limit) => {
       const anchors = Array.from(document.querySelectorAll('a[href^="/papers/"]'));
       const unique = new Map();
       anchors.forEach(a => {
@@ -42,8 +46,8 @@ export async function collectPapers() {
           unique.set(href, title);
         }
       });
-      return Array.from(unique.entries()).slice(0, 3).map(([href, title]) => ({ href, title }));
-    });
+      return Array.from(unique.entries()).slice(0, limit).map(([href, title]) => ({ href, title }));
+    }, maxItems);
 
     for (const paper of paperLinks) {
       await page.goto(paper.href, { waitUntil: 'domcontentloaded', timeout: 15000 });
@@ -69,10 +73,11 @@ export async function collectPapers() {
         }
       }
 
+      const summaryLength = mode === 'daily' ? 150 : 300;
       papers.push({
         title: paper.title,
         authors: 'Hugging Face Community Trending Authors',
-        summary: abstractText.slice(0, 300) + '...',
+        summary: abstractText.slice(0, summaryLength) + '...',
         arxivUrl: arXivUrl || paper.href
       });
     }

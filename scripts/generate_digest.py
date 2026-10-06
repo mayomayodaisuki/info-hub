@@ -16,16 +16,16 @@ DEFAULT_ARTICLES_DIR = "articles"
 
 DAILY_TEMPLATE = """# AI開発ダイジェスト (日刊) - {date}
 
-## 概要
+## 本日のハイライト速報
 {summary}
 
-## 本日の注目ニュース & トピック
+## 最新ニュース & コミュニティトピック
 {topics}
 
-## AI開発ツールの更新 & リリース
+## ツールの最新更新 & リリース
 {tools}
 
-## 技術考察・まとめ
+## 本日のワンポイントまとめ
 {analysis}
 
 ---

@@ -7,8 +7,9 @@ function getTodayDir() {
   return path.join(process.cwd(), 'resources', today);
 }
 
-export async function collectTechBlogs() {
-  console.log('[TechBlogs] テックブログ（Zenn, Qiita, note）の収集を開始します...');
+export async function collectTechBlogs(config = {}) {
+  const mode = config.mode || 'weekly';
+  console.log(`[TechBlogs] テックブログ（Zenn, Qiita, note）の収集を開始します... (モード: ${mode})`);
   const outputDir = getTodayDir();
   await fs.mkdir(outputDir, { recursive: true });
   const today = new Date().toISOString().split('T')[0];
