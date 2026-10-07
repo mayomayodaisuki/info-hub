@@ -1,0 +1,97 @@
+name: Generate AI Development Digest
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Digest Mode (daily / weekly)'
+        required: true
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - weekly
+  schedule:
+    # Daily run at 23:00 UTC (8:00 AM JST)
+    - cron: '0 23 * * *'
+
+jobs:
+  generate-digest:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci || npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Determine Mode and Update Config
+        id: set-mode
+        run: |
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ]; then
+            MODE="daily"
+          fi
+          echo "MODE=$MODE" >> $GITHUB_ENV
+          node -e "
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+            config.mode = '$MODE';
+            fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
+          "
+
+      - name: Run Data Collection
+        run: npm run collect:all
+
+      - name: Generate Digest Article
+        run: |
+          TODAY=$(date +'%Y-%m-%d')
+          python scripts/generate_digest.py --type $MODE --date $TODAY
+
+      - name: Lint and Format Articles
+        run: |
+          npm run lint:fix || true
+
+      - name: Run Python Tests
+        run: pytest
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "feat: generate ${{ env.MODE }} digest article for $(date +'%Y-%m-%d')"
+          title: "🤖 [${{ env.MODE }}] AI Development Digest - $(date +'%Y-%m-%d')"
+          body: |
+            ## 自動生成ダイジェスト記事
+
+            GitHub Actions ワークフローにより自動収集・生成された AI 開発ダイジェストです。
+
+            - **モード**: `${{ env.MODE }}`
+            - **実行日**: `$(date +'%Y-%m-%d')`
+
+            内容を確認の上、マージしてください。
+          branch: "digest/${{ env.MODE }}-$(date +'%Y%m%d-%H%M%S')"
+          delete-branch: true

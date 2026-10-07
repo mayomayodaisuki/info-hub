@@ -16,10 +16,11 @@ AI駆動開発投稿用プロジェクトです。週刊（Weekly）および日
 
 ## 特徴
 
-- **自動情報収集**: 複数のソースから最新のAI開発情報を自動収集
-- **日刊 / 週刊レポート選択**: `config.json` 設定ファイルで日刊・週刊モードを切り替え可能
+- **自動情報収集**: 複数のソース（News, Papers, Community, GitHub, Tech Blogs, Events）から最新のAI開発情報を自動収集
+- **日刊 / 週刊レポート選択**: `config.json` 設定ファイルで日刊・週刊モードを切り替え可能（日刊モードでは即時性重視の収集粒度・テンプレートに調整）
+- **GitHub Actions 自動化**: Jules（Agent）経由でなく、GitHub Actions (`workflow_dispatch` または定時 Cron 実行) からのパイプライン実行および自動 PR 作成に対応
 - **高品質な記事生成**: textlintを使用した日本語AI文章の品質チェック
-- **包括的なテスト**: Promptfoo（Gemini Flashプロバイダー）による品質・安全性テスト
+- **包括的なテスト**: Promptfoo（Gemini Flashプロバイダー）および Pytest による動作・品質チェック
 - **柔軟な実行方式**: 対話モード・非対話モードでの実行が可能
 
 ## 設定（config.json）
@@ -90,6 +91,20 @@ npm run collect:all
 - `/ai_events_digest` Connpassで今後のAI開発イベントを検索
 - `/hacker_news_reddit_digest` HNとRedditのトレンドAI開発ディスカッションを収集
 - `/ai_tec_blog_digest` Zenn、Qiita、noteでAI開発記事を検索
+
+## GitHub Actions からの自動起動 & PR 作成フロー
+
+### 1. GitHub Actions の構成
+`.github/workflows/generate_digest.yml` が定義されており、以下によって起動します。
+- **手動実行 (`workflow_dispatch`)**: GitHub UIの「Actions」タブからモード（`daily` / `weekly`）を選択してトリガー。
+- **定期実行 (`schedule`)**: Cron設定 (`0 23 * * *` / JST 8:00 AM) にて自動トリガー。
+
+### 2. Branch Commit から Pull Request 作成までの自動化ステップ
+1. **リポジトリ checkout & 環境セットアップ**: Node.js, Python, Playwright依存関係を準備。
+2. **モード判定 & Config更新**: 手動指定またはデフォルト (`daily`) モードに `config.json` を動的更新。
+3. **データ収集 & 記事生成**: `npm run collect:all` および `python scripts/generate_digest.py` の実行。
+4. **記事の整形 & テスト**: `npm run lint:fix` による文章自動修正、および `pytest` による動作確認。
+5. **ブランチ作成・コミット・PR作成**: `peter-evans/create-pull-request` アクションを用い、専用ブランチ (例: `digest/daily-YYYYMMDD-HHMMSS`) の作成、差分のコミット・プッシュ、および Pull Request の自動オープンを一括実行。
 
 ## テスト
 

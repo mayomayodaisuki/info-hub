@@ -101,8 +101,25 @@ When assigned a task to run or maintain the weekly digest pipeline, execute thes
    Ensure all promptfoo test cases pass without safety or quality violations.
 
 5. **Commit Changes & Open Pull Request**:
-   - Stage resources/YYYY-MM-DD/ and articles/weekly_ai_YYYYMMDD.md.
+   - Stage resources/YYYY-MM-DD/ and articles/weekly_ai_YYYYMMDD.md (or articles/daily/YYYY-MM-DD-daily-digest.md).
    - Create a git commit and push to open a Pull Request.
+
+---
+
+## 5. GitHub Actions Execution & Automated PR Workflows
+
+In addition to Jules execution, this repository supports autonomous execution via GitHub Actions (`.github/workflows/generate_digest.yml`).
+
+### Workflow Triggers
+- `workflow_dispatch`: Manual execution from GitHub UI with `mode` parameter selection (`daily` or `weekly`).
+- `schedule`: Automated daily trigger via Cron (`0 23 * * *` / 08:00 JST).
+
+### GitHub Actions Pipeline Execution & PR Creation
+1. Sets `config.json` mode dynamically according to workflow input.
+2. Runs data collection (`npm run collect:all`).
+3. Generates Markdown digest via `python scripts/generate_digest.py`.
+4. Runs `npm run lint:fix` and `pytest`.
+5. Uses `peter-evans/create-pull-request@v6` to automatically create a topic branch (`digest/${mode}-${timestamp}`), commit changes, push to GitHub, and open a Pull Request.
 
 ---
 
