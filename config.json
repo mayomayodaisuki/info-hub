@@ -1,5 +1,5 @@
 {
-  "mode": "weekly",
+  "mode": "daily",
   "daily": {
     "titlePrefix": "日刊AI駆動開発ダイジェスト",
     "daysToCollect": 1
