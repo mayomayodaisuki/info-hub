@@ -12,8 +12,8 @@ on:
           - daily
           - weekly
   schedule:
-    # Daily run at 23:00 UTC (8:00 AM JST)
-    - cron: '0 23 * * *'
+    # Daily run at 22:00 UTC (7:00 AM JST)
+    - cron: '0 22 * * *'
 
 jobs:
   generate-digest:
