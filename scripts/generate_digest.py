@@ -136,6 +136,80 @@ def generate_digest(
     else:
         date_str = date_str.strip()
 
+    # Attempt to load content from resources directory if fields are not explicitly provided
+    resource_dir = os.path.join("resources", date_str)
+    if os.path.exists(resource_dir):
+        collected_summary = []
+        collected_topics = []
+        collected_tools = []
+
+        # 1. News & Community Topics
+        news_file = os.path.join(resource_dir, "ai_news_summary.md")
+        if os.path.exists(news_file):
+            with open(news_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            # Extract section under Major Announcements
+            if "## Major Announcements" in content:
+                announcements = content.split("## Major Announcements")[1].split("## Source References")[0].strip()
+                if announcements:
+                    collected_topics.append("### 📰 主要AIニュース\n" + announcements)
+
+        comm_file = os.path.join(resource_dir, "community_discussions.md")
+        if os.path.exists(comm_file):
+            with open(comm_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            if "## 注目のトピック" in content:
+                comm_topics = content.split("## 注目のトピック")[1].strip()
+                if comm_topics:
+                    collected_topics.append("### 🌐 コミュニティ議論 (HN / Reddit)\n" + comm_topics)
+
+        paper_file = os.path.join(resource_dir, "ai_trending_papers.md")
+        if os.path.exists(paper_file):
+            with open(paper_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            lines = content.strip().splitlines()
+            body_lines = [l for l in lines if not l.startswith("# ")]
+            if body_lines:
+                collected_topics.append("### 📄 注目論文・研究\n" + "\n".join(body_lines).strip())
+
+        tech_blog_file = os.path.join(resource_dir, "tech_blog_articles.md")
+        if os.path.exists(tech_blog_file):
+            with open(tech_blog_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            if "## Featured Articles" in content:
+                blogs = content.split("## Featured Articles")[1].strip()
+                if blogs:
+                    collected_topics.append("### 💻 技術ブログ\n" + blogs)
+
+        # 2. Tools & Releases & Trending Repos
+        release_file = os.path.join(resource_dir, "release_information.md")
+        if os.path.exists(release_file):
+            with open(release_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            lines = content.strip().splitlines()
+            body_lines = [l for l in lines if not l.startswith("# ")]
+            if body_lines:
+                collected_tools.append("### 📦 リリース情報\n" + "\n".join(body_lines).strip())
+
+        repo_file = os.path.join(resource_dir, "trending_repositories.md")
+        if os.path.exists(repo_file):
+            with open(repo_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            lines = content.strip().splitlines()
+            body_lines = [l for l in lines if not l.startswith("# ")]
+            if body_lines:
+                collected_tools.append("### ⭐ トレンドリポジトリ\n" + "\n".join(body_lines).strip())
+
+        # Construct combined strings if not provided explicitly
+        if not topics and collected_topics:
+            topics = "\n\n".join(collected_topics)
+        if not tools and collected_tools:
+            tools = "\n\n".join(collected_tools)
+
+        # Construct summary highlight from topics and tools
+        if not summary and (collected_topics or collected_tools):
+            summary = f"本日({date_str})収集された最新のAI開発情報（ニュース、論文、コミュニティ議論、GitHubトレンド、リリース）のハイライト一覧です。"
+
     # Fill defaults for content fields if missing
     summary = summary or "本日・今週のAI開発における主要なアップデートと注目トピックの概要です。"
     topics = topics or "- LLMおよびAIツールの最新動向\n-オープンソースモデルの進化と活用事例"

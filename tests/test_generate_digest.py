@@ -68,6 +68,24 @@ def test_generate_digest_daily_file_creation():
         shutil.rmtree(temp_dir)
 
 
+def test_generate_digest_with_resource_files():
+    temp_dir = tempfile.mkdtemp()
+    date_str = "2026-10-07"
+    try:
+        path = generate_digest(
+            digest_type="daily",
+            date_str=date_str,
+            output_dir=temp_dir,
+        )
+        assert os.path.exists(path)
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        assert "# AI開発ダイジェスト (日刊) - 2026-10-07" in content
+        assert "主要AIニュース" in content or "コミュニティ議論" in content or "リリース情報" in content
+    finally:
+        shutil.rmtree(temp_dir)
+
+
 def test_generate_digest_weekly_file_creation():
     temp_dir = tempfile.mkdtemp()
     try:
